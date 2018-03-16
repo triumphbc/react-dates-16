@@ -240,8 +240,11 @@ export default withStyles(({ reactDates: { color, font, spacing } }) => ({
     color: color.text,
     fontSize: font.captionSize,
     textAlign: 'center',
-    paddingTop: spacing.captionPaddingTop,
-    paddingBottom: spacing.captionPaddingBottom,
+    padding: '15px 0 25px',
+    marginTop: '7px',
+    marginBottom: '2px',
+    // paddingTop: spacing.captionPaddingTop,
+    // paddingBottom: spacing.captionPaddingBottom,
     captionSide: 'initial',
   },
 

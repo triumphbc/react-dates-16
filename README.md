@@ -1,3 +1,8 @@
+# Triumph - Before pushing to master
+
+1. `npm run build`
+2. Check in the `lib` directory
+
 # react-dates <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
 [![Build Status][travis-svg]][travis-url]
