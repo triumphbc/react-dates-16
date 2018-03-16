@@ -53,7 +53,7 @@ function DayPickerNavigation({
   orientation,
   phrases,
   isRTL,
-  styles,
+  styles
 }) {
   const isHorizontal = orientation === HORIZONTAL_ORIENTATION;
   const isVertical = orientation !== HORIZONTAL_ORIENTATION;
@@ -213,7 +213,7 @@ export default withStyles(({ reactDates: { color, zIndex } }) => ({
 
   DayPickerNavigation_button__horizontal: {
     borderRadius: 3,
-    padding: '6px 9px',
+    padding: '3px 4px',
     top: 18,
     position: 'absolute',
   },

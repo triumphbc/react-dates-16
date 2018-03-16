@@ -11,14 +11,14 @@ const core = {
   borderLighter: '#eceeee',
   borderBright: '#f4f5f5',
 
-  primary: '#00a699',
-  primaryShade_1: '#33dacd',
-  primaryShade_2: '#66e2da',
-  primaryShade_3: '#80e8e0',
-  primaryShade_4: '#b2f1ec',
-  primary_dark: '#008489',
+  primary: '#2880BA',
+  primaryShade_1: '#3498DB',
+  primaryShade_2: '#5cb5f1',
+  primaryShade_3: '#3498DB',
+  primaryShade_4: '#95D4FE',
+  primary_dark: '#2880BA',
 
-  secondary: '#007a87',
+  secondary: '#2880BA',
 
   yellow: '#ffe8bc',
   yellow_dark: '#ffce71',
@@ -53,7 +53,7 @@ export default {
       backgroundFocused: core.white,
       text: core.gray,
       textDisabled: core.border,
-      textFocused: '#007a87',
+      textFocused: '#2880BA',
       placeholderText: '#757575',
 
       outside: {
@@ -171,8 +171,8 @@ export default {
     },
 
     font: {
-      size: 14,
-      captionSize: 18,
+      size: 12,
+      captionSize: 15,
       input: {
         size: 18,
         lineHeight: '24px',

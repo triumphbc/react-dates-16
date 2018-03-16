@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
 import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
 import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
+import MenuMonthYears from './MenuMonthYear';
 
 import moment from 'moment';
 import throttle from 'lodash/throttle';
@@ -45,6 +46,7 @@ const MONTH_PADDING = 23;
 const DAY_PICKER_PADDING = 9;
 const PREV_TRANSITION = 'prev';
 const NEXT_TRANSITION = 'next';
+const MONTHYEAR_TRANSITION = 'monthyear';
 
 const propTypes = forbidExtraProps({
   ...withStylesPropTypes,
@@ -178,6 +180,8 @@ class DayPicker extends React.Component {
       withMouseInteractions: true,
       hasSetHeight: false,
       calendarInfoWidth: 0,
+      month: moment().format('M'),
+      year: moment().format('YYYY')
     };
 
     this.calendarMonthHeights = [];
@@ -190,6 +194,7 @@ class DayPicker extends React.Component {
     this.onNextMonthClick = this.onNextMonthClick.bind(this);
     this.multiplyScrollableMonths = this.multiplyScrollableMonths.bind(this);
     this.updateStateAfterMonthTransition = this.updateStateAfterMonthTransition.bind(this);
+    this.handleChangeMonthYearMenu = this.handleChangeMonthYearMenu.bind(this);
 
     this.openKeyboardShortcutsPanel = this.openKeyboardShortcutsPanel.bind(this);
     this.closeKeyboardShortcutsPanel = this.closeKeyboardShortcutsPanel.bind(this);
@@ -563,6 +568,8 @@ class DayPicker extends React.Component {
       nextFocusedDate,
       withMouseInteractions,
       calendarMonthWidth,
+      month,
+      year
     } = this.state;
 
     if (!monthTransition) return;
@@ -574,6 +581,8 @@ class DayPicker extends React.Component {
     } else if (monthTransition === NEXT_TRANSITION) {
       if (onNextMonthClick) onNextMonthClick();
       newMonth.add(1, 'month');
+    } else if (monthTransition === MONTHYEAR_TRANSITION) {
+      newMonth.set({year, month: month - 1});
     }
 
     let newFocusedDate = null;
@@ -712,6 +721,13 @@ class DayPicker extends React.Component {
     );
   }
 
+  handleChangeMonthYearMenu(obj) {
+    obj.monthTransition = MONTHYEAR_TRANSITION;
+    this.setState(obj, () => {
+      this.updateStateAfterMonthTransition();
+    });
+  }
+
   render() {
     const {
       calendarMonthWidth,
@@ -770,7 +786,7 @@ class DayPicker extends React.Component {
     } else if (this.isVertical() && !verticalScrollable && !withPortal) {
       // If the user doesn't set a desired height,
       // we default back to this kind of made-up value that generally looks good
-      height = verticalHeight || 1.75 * calendarMonthWidth;
+      height = verticalHeight || 1.75 * calendarMonthWidth + 50;
     }
 
     const isCalendarMonthGridAnimating = monthTransition !== null;
@@ -914,6 +930,12 @@ class DayPicker extends React.Component {
                 {verticalScrollable && this.renderNavigation()}
               </div>
 
+              <MenuMonthYears
+                  onMenuChangeYearMonth={this.handleChangeMonthYearMenu}
+                  month={this.state.month}
+                  year={this.state.year}
+              />
+
               {!isTouch && !hideKeyboardShortcutsPanel &&
                 <DayPickerKeyboardShortcuts
                   block={this.isVertical() && !withPortal}
@@ -999,7 +1021,7 @@ export default withStyles(({ reactDates: { color, font, zIndex } }) => ({
   DayPicker_weekHeader: {
     color: color.placeholderText,
     position: 'absolute',
-    top: 62,
+    top: 50,
     zIndex: zIndex + 2,
     padding: '0 13px',
     textAlign: 'left',
